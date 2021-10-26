@@ -5,11 +5,9 @@
   "files": [
     "dist"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "webpack --mode production --node-env production",
-    "start": "http-server ./dist -p 3000",
-    "dev": "webpack serve --mode development --node-env development",
     "typecheck": "tsc",
     "eslint": "eslint . --ext .ts,.tsx",
     "eslint:fix": "eslint . --ext .ts,.tsx --fix",
