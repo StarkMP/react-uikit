@@ -5,7 +5,7 @@
   "files": [
     "dist/**/*"
   ],
-  "version": "1.0.3",
+  "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production --node-env production",
     "typecheck": "tsc",
