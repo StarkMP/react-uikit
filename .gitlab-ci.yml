@@ -1,0 +1,11 @@
+image: node:14.15.4
+
+stages:
+  - linters
+
+linters:
+  stage: linters
+  script:
+    - npm install
+    - npm run lint
+  retry: 2
