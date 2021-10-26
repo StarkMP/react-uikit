@@ -1,11 +1,11 @@
 {
   "name": "boxis-uikit",
   "main": "./dist/boxis-uikit.js",
-  "types": "./dist/boxis-uikit.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist/**/*"
   ],
-  "version": "1.0.1",
+  "version": "1.0.3",
   "scripts": {
     "build": "webpack --mode production --node-env production",
     "typecheck": "tsc",
@@ -13,7 +13,8 @@
     "eslint:fix": "eslint . --ext .ts,.tsx --fix",
     "lint": "npm run eslint && npm run typecheck"
   },
-  "prepublishOnly": "webpack --mode production --node-env production",
+  "prepare": "npm run build",
+  "prepublishOnly": "npm run lint",
   "author": "Maxim Serebryakov <starkmp.work@gmail.com>",
   "dependencies": {
     "react": "^17.0.2",

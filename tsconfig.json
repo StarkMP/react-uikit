@@ -14,6 +14,7 @@
     "jsx": "preserve",
     "strict": true,
     "declaration": true,
+    "declarationDir": "dist",
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["./src/**/*", "./types/**/*", ".eslintrc.js"],
