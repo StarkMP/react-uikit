@@ -1,5 +1,244 @@
 # Boxis UIKit
 Набор React-компонентов.
 
-## Использование
-Документация в разработке.
+## Installation
+
+- Устанавливаем NPM зависимость
+
+	``npm install boxis-uikit``
+- Подключаем стили в главном JS файле
+
+	```js
+	import "boxis-uikit/dist/index.css";
+	```
+
+## API
+
+### Navigation
+
+- [Input](#input)
+- [Button](#button)
+- [Form](#form)
+- [FormItem](#formitem)
+  - [interface FormValidationRule](#interface-formvalidationrule)
+  - [enum ValidationRule](#enum-validationrule)
+- [Modal](#modal)
+
+### Input
+
+Example
+
+```tsx
+<Input
+  border
+  type='email'
+  size='lg'
+  name='email'
+  placeholder='Введите Email'
+/>
+```
+
+Props extends **HTMLInputElement**
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|label?|string|Подпись сверху|
+|size?|`md` / `lg`|Размер|
+|icon?|ReactNode|Иконка внутри инпута|
+|error?|boolean|Состояние ошибки|
+|errorText?|string|Текст ошибки|
+|border?|boolean|Включает/выключает обводку|
+|type?|`email` / `password`|Тип инпута (в данный момент поддерживается email и password)|
+
+### Button
+
+Example
+
+```tsx
+const [count, setCount] = useState(0);
+
+return (
+  <Button
+    size='lg'
+    onClick={setCount((prev) => prev + 1)}
+  >
+    Добавить
+  </Button>
+);
+```
+
+Props extends **HTMLButtonElement**
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|size?|`sm` / `md` / `lg`|Размер|
+|outlined?|boolean|Состояние с пустым background и обводкой|
+|borderless?|boolean|Состояние без обводки|
+|loading?|boolean|Состояние загрузки|
+
+### Form
+
+Example
+
+```tsx
+<Form>
+  <FormItem
+    component={Input}
+    border
+    type='email'
+    size='lg'
+    name='email'
+    placeholder='Введите Email'
+    validation={[
+      {
+        rule: ValidationRule.Required,
+        message: 'Заполните обязательное поле!',
+      },
+      {
+        rule: ValidationRule.RegExp,
+        message: 'Некорректный email',
+        value: /^\S+@\S+\.\S+$/,
+      },
+    ]}
+  />
+  <FormItem
+    component={Input}
+    border
+    type='password'
+    size='lg'
+    name='password'
+    placeholder='Введите пароль'
+    validation={[
+      {
+        rule: ValidationRule.Required,
+        message: 'Заполните обязательное поле!',
+      },
+      {
+        rule: ValidationRule.MaxLength,
+        value: 18,
+        message: 'Длина не может быть больше 18 символов!',
+      },
+      {
+        rule: ValidationRule.MinLength,
+        value: 6,
+        message: 'Длина не может быть меньше 6 символов!',
+      },
+    ]}
+  />
+  <Button size='lg' type='submit'>
+    Зарегистрироваться
+  </Button>
+</Form>
+```
+
+Props extends **HTMLFormElement**
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|onSubmit?|({ values, formData }) => void|Callback при отправке формы|
+|onValidationFailed?|({ values, validation }) => void|Callback при неудачной валидации формы|
+
+### FormItem
+
+Example
+
+```tsx
+<FormItem
+  component={Input}
+  border
+  type='email'
+  size='lg'
+  name='email'
+  placeholder='Введите Email'
+  validation={[
+    {
+      rule: ValidationRule.Required,
+      message: 'Заполните обязательное поле!',
+    },
+    {
+      rule: ValidationRule.RegExp,
+      message: 'Некорректный email',
+      value: /^\S+@\S+\.\S+$/,
+    },
+  ]}
+/>
+```
+
+Пример с **Custom** правилами. Здесь используется generic `StringFormItem` для обозначения типа `fieldValue` в callback-функции собственных правил. Существует несколько подобных типов для FormItem: `StringFormItem`, `FileFormItem`
+
+```tsx
+<FormItem<StringFormItem>
+  component={Input}
+  border
+  type='password'
+  size='lg'
+  name='password'
+  placeholder='Введите пароль'
+  validation={[
+    {
+      rule: ValidationRule.Custom,
+      message: 'Длина должна быть кратна 2',
+      value: (fieldValue) => val.length % 2 === 0,
+    },
+    {
+      rule: ValidationRule.Custom,
+      message: 'Длина должна быть больше 6 символов',
+      value: (fieldValue) => val.length > 6,
+    },
+  ]}
+/>
+```
+
+Props extends **HTMLInputElement**
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|name|string|Аттрибут `name` у элемента формы|
+|component|ReactComponent|Компонент, от которого наследуется FormItem|
+|validation|FormValidationRule[]|Правила валидации для элемента|
+
+#### interface `FormValidationRule`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|rule|ValidationRule|Идентификатор правила|
+|message|string|Сообщение при неудачной валидации элемента|
+|value?|unknown|Вспомогательное поле для проверки правила|
+
+#### enum `ValidationRule`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|Required|`required`|Обязательное поле|
+|Match|`match`|Соответствует ли заданному значению в `value`|
+|NotMatch|`not_match`|Не соответствует ли заданному значению в `value`|
+|MinLength|`min_length`|Длина строки значения больше или равно `value`|
+|MaxLength|`max_length`|Длина строки значения меньше или равно `value`|
+|RegExp|`regexp`|Соответствует ли значение регулярному выражению в `value`|
+|Custom|`custom_<uuid>`|Принимает в `value` callback-функцию, типа `(fieldValue) => boolean`, где аргумент `fieldValue` - значение поля. При возвращении `true`, валидация будет выполнена успешно, при `false` проверка будет провалена|
+
+### Modal
+
+Example
+
+```tsx
+const [isShow, setIsShow] = useState(false);
+
+return (
+  <Modal isShow={isShow} onClose={() => setIsShow(false)}>
+    <p>Согласны ли Вы с правилами сайта?</p>
+    <button>Да</button>
+    <button>Нет</button>
+  </Modal>
+);
+```
+
+Props
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|portalElement?|HTMLElement|HTML-элемент, в котором будет создано модальное окно. По-умолчанию: `body`|
+|hideCloseButton?|boolean|Скрыть перекрестие внутри модального окна|
+|disableOverlayClose?|boolean|Запретить закрытие модального окна при клике на оверлей|
+|isShow|boolean|Показать модальное окно|
+|onClose|() => void|Callback при закрытии модального окна|

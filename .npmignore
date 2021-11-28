@@ -1,9 +1,10 @@
 # source code
 src
+public
 
 # compiler
 tsconfig.json
-webpack.config.js
+tools
 postcss.config.js
 .babelrc.js
 

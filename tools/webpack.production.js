@@ -1,14 +1,18 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCSSExtactPlugin = require('mini-css-extract-plugin');
+const WebpackCommonConfig = require('./webpack.common');
 const path = require('path');
 
 module.exports = {
+  ...WebpackCommonConfig,
   target: 'web',
   entry: {
-    bundle: path.resolve(__dirname, 'src/index.tsx'),
+    index: path.resolve(__dirname, '../src/index.tsx'),
   },
   output: {
-    filename: 'boxis-uikit.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../dist'),
+    assetModuleFilename: 'assets/[contenthash:8].[ext]',
     library: 'boxis-uikit',
     libraryTarget: 'umd',
     globalObject: 'this',
@@ -16,25 +20,10 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new MiniCSSExtactPlugin({
+      filename: '[name].css',
+    }),
   ],
-  resolve: {
-    extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(j|t)sx?$/,
-        exclude: /(node_modules|bower_components)/,
-        use: ['babel-loader', 'awesome-typescript-loader'].filter(Boolean),
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader',
-      },
-    ],
-  },
-  devtool: 'source-map',
   externals: {
     react: {
       root: 'React',

@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "strict": true,
+    "noEmit": true,
     "declaration": true,
     "declarationDir": "dist",
     "typeRoots": ["./node_modules/@types", "./src/types"]
