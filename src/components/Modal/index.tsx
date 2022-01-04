@@ -33,6 +33,7 @@ const Container = styled(motion.div)`
   background: #ffffff;
   border-radius: 14px;
   position: relative;
+  max-width: 100%;
 `;
 
 const Body = styled.div`
