@@ -8,11 +8,11 @@ import styled from 'styled-components';
 import {
   Button as UIButton,
   Form as UIForm,
-  FormItem as UIFormItem,
   FormSubmitArguments,
   FormValidationFailedArguments,
-  Input,
+  Input as UIInput,
   Modal,
+  Select as UISelect,
   ValidationRule,
 } from '.';
 
@@ -21,7 +21,7 @@ const Form = styled(UIForm)`
   width: 100%;
 `;
 
-const FormItem = styled(UIFormItem)`
+const Input = styled(UIInput)`
   width: 100%;
   margin-bottom: 20px;
 `;
@@ -50,6 +50,15 @@ const Disclaimer = styled.div`
   margin-bottom: 20px;
 `;
 
+const Select = styled(UISelect)`
+  margin-bottom: 20px;
+  width: 100%;
+
+  .ui-select__btn {
+    border: 1px solid #dddddd;
+  }
+`;
+
 const App: React.FC = () => {
   const [isShow, setIsShow] = useState(false);
 
@@ -66,12 +75,11 @@ const App: React.FC = () => {
       <Modal onClose={() => setIsShow(false)} isShow={isShow}>
         <Form onSubmit={onSubmit} onValidationFailed={onValidationFailed}>
           <Title>Регистрация</Title>
-          <FormItem
-            component={Input}
+          <Input
+            name='email'
             border
             type='email'
             size='lg'
-            name='email'
             placeholder='Введите Email'
             validation={[
               {
@@ -85,8 +93,7 @@ const App: React.FC = () => {
               },
             ]}
           />
-          <FormItem
-            component={Input}
+          <Input
             border
             type='password'
             size='lg'
@@ -107,6 +114,14 @@ const App: React.FC = () => {
                 value: 6,
                 message: 'Длина не может быть меньше 6 символов!',
               },
+            ]}
+          />
+          <Select
+            name='language'
+            placeholder='Select your language'
+            options={[
+              { label: 'Russian', value: 'ru', disabled: true },
+              { label: 'English', value: 'en' },
             ]}
           />
           <Disclaimer>
