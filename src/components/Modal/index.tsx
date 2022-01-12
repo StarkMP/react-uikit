@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
+import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
+import useOutsideClick from '../../hooks/useOutsideClick';
 import Icons from '../Icons';
 
 export type ModalProps = {
@@ -74,6 +75,12 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   ...other
 }) => {
+  const containerRef = useRef(null);
+
+  useOutsideClick(containerRef, () => {
+    if (!disableOverlayClose) onClose();
+  });
+
   if (!isShow) return null;
 
   return createPortal(
@@ -83,9 +90,9 @@ const Modal: React.FC<ModalProps> = ({
         animate={'show'}
         exit={'exit'}
         variants={overlayAnimation}
-        onClick={disableOverlayClose ? () => void 0 : onClose}
       >
         <Container
+          ref={containerRef}
           onClick={(e) => e.stopPropagation()}
           variants={modalAnimation}
           {...other}

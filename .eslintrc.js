@@ -30,6 +30,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-assignment': 0,
     '@typescript-eslint/restrict-template-expressions': 0,
     '@typescript-eslint/no-empty-function': 0,
+    '@typescript-eslint/no-explicit-any': 0,
     'jsx-quotes': ['error', 'prefer-single'],
     'react/jsx-fragments': ['error', 'element'],
     'react/jsx-uses-react': 'error',

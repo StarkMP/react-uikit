@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { FormValidationRule } from '../Form/types';
+import useFormValidation from '../Form/useFormValidation';
+import ValidationError from '../Form/ValidationError';
+
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'size' | 'type'
@@ -10,11 +14,11 @@ export type InputProps = Omit<
   label?: string;
   size?: 'md' | 'lg';
   icon?: React.ReactNode;
-  error?: boolean;
-  errorText?: string;
+  validation?: FormValidationRule[];
 };
 
 type StyledComponentInputProps = InputProps & {
+  error: boolean;
   withIcon: boolean;
   _size: 'md' | 'lg';
 };
@@ -89,7 +93,7 @@ const Input = styled.input<StyledComponentInputProps>`
   ${(props) =>
     props.error &&
     `
-    border: 1px solid #D0091E;
+    border: 1px solid #D0091E !important;
   `}
 
   &::placeholder {
@@ -115,23 +119,14 @@ const IconWrapper = styled.div`
   }
 `;
 
-const ErrorText = styled.div`
-  box-sizing: border-box;
-  font-family: 'Gilroy', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 15px;
-  color: #ea526f;
-  margin-top: 8px;
-`;
-
 const InputComponent: React.FC<InputProps> = ({
+  name,
   className,
   label,
   size = 'lg',
   icon,
-  errorText,
   disabled,
+  validation,
   onChange,
   ...other
 }) => {
@@ -145,20 +140,31 @@ const InputComponent: React.FC<InputProps> = ({
     if (onChange) onChange(e);
   };
 
+  const validationState = useFormValidation(name, validation, {
+    onChange: handleChange,
+  });
+
   return (
     <Wrapper disabled={disabled} className={resultClassName}>
       {label && <Label>{label}</Label>}
       <InputWrapper>
         <Input
+          name={name}
           _size={size}
           withIcon={Boolean(icon)}
-          onChange={handleChange}
+          onChange={validationState ? validationState.onChange : handleChange}
           value={value}
+          error={validationState ? validationState.error : false}
           {...other}
         />
         {icon && <IconWrapper>{icon}</IconWrapper>}
       </InputWrapper>
-      {errorText && <ErrorText>{errorText}</ErrorText>}
+      {validationState && (
+        <ValidationError
+          isVisible={validationState.error}
+          label={validationState.errorMessage}
+        />
+      )}
     </Wrapper>
   );
 };

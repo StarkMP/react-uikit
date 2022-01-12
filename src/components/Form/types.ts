@@ -1,11 +1,4 @@
-import {
-  ComponentType,
-  FC,
-  FormEvent as ReactFormEvent,
-  FormHTMLAttributes,
-} from 'react';
-
-import { InputProps } from '../Input';
+import { FormEvent as ReactFormEvent, FormHTMLAttributes } from 'react';
 
 export type FormValues = Record<string, FormDataEntryValue>;
 
@@ -107,13 +100,3 @@ export type FormValidationStatus = Record<
   string,
   Record<ValidationRule, boolean>
 >;
-
-export type FormItemProps<T = FormValues> = Omit<InputProps, 'name'> & {
-  name: string;
-  component: ComponentType<InputProps>;
-  validation: FormValidationRule<T>[];
-};
-
-export type StringFormItem = FC<FormItemProps<string>>;
-
-export type FileFormItem = FC<FormItemProps<File>>;

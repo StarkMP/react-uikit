@@ -6,10 +6,17 @@
 - Устанавливаем NPM зависимость
 
 	``npm install boxis-uikit``
-- Подключаем стили в главном JS файле
+- Подключаем стили в главном JS или CSS файле
 
+  index.js
 	```js
 	import "boxis-uikit/dist/index.css";
+	```
+  или
+
+  index.css
+  ```css
+	@import url("boxis-uikit/dist/index.css");
 	```
 
 ## API
@@ -19,10 +26,11 @@
 - [Input](#input)
 - [Button](#button)
 - [Form](#form)
-- [FormItem](#formitem)
-  - [interface FormValidationRule](#interface-formvalidationrule)
-  - [enum ValidationRule](#enum-validationrule)
 - [Modal](#modal)
+- [Select](#select)
+  - [interface Option](#interface-option)
+- [interface FormValidationRule](#interface-formvalidationrule)
+- [enum ValidationRule](#enum-validationrule)
 
 ### Input
 
@@ -38,6 +46,29 @@ Example
 />
 ```
 
+Example with validation
+
+```tsx
+<Input
+  border
+  type='email'
+  size='lg'
+  name='email'
+  placeholder='Введите Email'
+  validation={[
+    {
+      rule: ValidationRule.Required,
+      message: 'Заполните обязательное поле!',
+    },
+    {
+      rule: ValidationRule.RegExp,
+      message: 'Некорректный email',
+      value: /^\S+@\S+\.\S+$/,
+    },
+  ]}
+/>
+```
+
 Props extends **HTMLInputElement**
 
 |Name|Type|Description|
@@ -49,6 +80,7 @@ Props extends **HTMLInputElement**
 |errorText?|string|Текст ошибки|
 |border?|boolean|Включает/выключает обводку|
 |type?|`email` / `password`|Тип инпута (в данный момент поддерживается email и password)|
+|validation?|FormValidationRule[]|Правила валидации для элемента. Используется только внутри Form|
 
 ### Button
 
@@ -82,8 +114,7 @@ Example
 
 ```tsx
 <Form>
-  <FormItem
-    component={Input}
+  <Input
     border
     type='email'
     size='lg'
@@ -101,8 +132,7 @@ Example
       },
     ]}
   />
-  <FormItem
-    component={Input}
+  <Input
     border
     type='password'
     size='lg'
@@ -135,87 +165,8 @@ Props extends **HTMLFormElement**
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|onSubmit?|({ values, formData }) => void|Callback при отправке формы|
+|onSubmit|({ values, formData }) => void|Callback при отправке формы|
 |onValidationFailed?|({ values, validation }) => void|Callback при неудачной валидации формы|
-
-### FormItem
-
-Example
-
-```tsx
-<FormItem
-  component={Input}
-  border
-  type='email'
-  size='lg'
-  name='email'
-  placeholder='Введите Email'
-  validation={[
-    {
-      rule: ValidationRule.Required,
-      message: 'Заполните обязательное поле!',
-    },
-    {
-      rule: ValidationRule.RegExp,
-      message: 'Некорректный email',
-      value: /^\S+@\S+\.\S+$/,
-    },
-  ]}
-/>
-```
-
-Пример с **Custom** правилами. Здесь используется generic `StringFormItem` для обозначения типа `fieldValue` в callback-функции собственных правил. Существует несколько подобных типов для FormItem: `StringFormItem`, `FileFormItem`
-
-```tsx
-<FormItem<StringFormItem>
-  component={Input}
-  border
-  type='password'
-  size='lg'
-  name='password'
-  placeholder='Введите пароль'
-  validation={[
-    {
-      rule: ValidationRule.Custom,
-      message: 'Длина должна быть кратна 2',
-      value: (fieldValue) => val.length % 2 === 0,
-    },
-    {
-      rule: ValidationRule.Custom,
-      message: 'Длина должна быть больше 6 символов',
-      value: (fieldValue) => val.length > 6,
-    },
-  ]}
-/>
-```
-
-Props extends **HTMLInputElement**
-
-|Name|Type|Description|
-|-------------|-------------|-------------|
-|name|string|Аттрибут `name` у элемента формы|
-|component|ReactComponent|Компонент, от которого наследуется FormItem|
-|validation|FormValidationRule[]|Правила валидации для элемента|
-
-#### interface `FormValidationRule`
-
-|Name|Type|Description|
-|-------------|-------------|-------------|
-|rule|ValidationRule|Идентификатор правила|
-|message|string|Сообщение при неудачной валидации элемента|
-|value?|unknown|Вспомогательное поле для проверки правила|
-
-#### enum `ValidationRule`
-
-|Name|Type|Description|
-|-------------|-------------|-------------|
-|Required|`required`|Обязательное поле|
-|Match|`match`|Соответствует ли заданному значению в `value`|
-|NotMatch|`not_match`|Не соответствует ли заданному значению в `value`|
-|MinLength|`min_length`|Длина строки значения больше или равно `value`|
-|MaxLength|`max_length`|Длина строки значения меньше или равно `value`|
-|RegExp|`regexp`|Соответствует ли значение регулярному выражению в `value`|
-|Custom|`custom_<uuid>`|Принимает в `value` callback-функцию, типа `(fieldValue) => boolean`, где аргумент `fieldValue` - значение поля. При возвращении `true`, валидация будет выполнена успешно, при `false` проверка будет провалена|
 
 ### Modal
 
@@ -242,3 +193,60 @@ Props
 |disableOverlayClose?|boolean|Запретить закрытие модального окна при клике на оверлей|
 |isShow|boolean|Показать модальное окно|
 |onClose|() => void|Callback при закрытии модального окна|
+
+### Select
+
+Example
+
+```tsx
+return (
+  <Select
+    placeholder='Choose your language'
+    options={[
+      { label: 'Russian', value: 'ru' },
+      { label: 'English', value: 'en' },
+    ]}
+  />
+);
+```
+
+Props
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|className?|string|Аттрибут `class`|
+|name?|string|Аттрибут `name`. Используется для встраивания элемента в Form|
+|placeholder?|string|Текст в Select по-умолчанию, если не выбран ни один элемент списка|
+|defaultValue?|string|Выбранное значение по-умолчанию|
+|options|Option[]|Элементы списка|
+|validation?|FormValidationRule[]|Правила валидации для элемента. Используется только внутри Form|
+|onChange?|(value: string) => void|Callback, срабатывающий при выборе элемента из списка|
+
+#### interface `Option`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|label|string|Название|
+|value|string|Значение|
+|icon?|ReactNode|Иконка|
+|disabled?|boolean|Запретить выбор элемента в списке|
+
+#### interface `FormValidationRule`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|rule|ValidationRule|Идентификатор правила|
+|message|string|Сообщение при неудачной валидации элемента|
+|value?|unknown|Вспомогательное поле для проверки правила|
+
+#### enum `ValidationRule`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|Required|`required`|Обязательное поле|
+|Match|`match`|Соответствует ли заданному значению в `value`|
+|NotMatch|`not_match`|Не соответствует ли заданному значению в `value`|
+|MinLength|`min_length`|Длина строки значения больше или равно `value`|
+|MaxLength|`max_length`|Длина строки значения меньше или равно `value`|
+|RegExp|`regexp`|Соответствует ли значение регулярному выражению в `value`|
+|Custom|`custom_<uuid>`|Принимает в `value` callback-функцию, типа `(fieldValue) => boolean`, где аргумент `fieldValue` - значение поля. При возвращении `true`, валидация будет выполнена успешно, при `false` проверка будет провалена|
