@@ -1,12 +1,13 @@
 import './styles/fonts.scss';
 import './styles/global.scss';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 import {
   Button as UIButton,
+  Dropdown,
   Form as UIForm,
   FormSubmitArguments,
   FormValidationFailedArguments,
@@ -71,7 +72,16 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Button onClick={() => setIsShow(true)}>Регистрация</Button>
+      {/* Dropdown */}
+      <Button id='dropdown-btn' style={{ marginBottom: '10px' }}>
+        Dropdown
+      </Button>
+      <Dropdown align='left' triggerId='dropdown-btn'>
+        123
+      </Dropdown>
+
+      {/* Modal */}
+      <Button onClick={() => setIsShow(true)}>Modal</Button>
       <Modal onClose={() => setIsShow(false)} isShow={isShow}>
         <Form onSubmit={onSubmit} onValidationFailed={onValidationFailed}>
           <Title>Регистрация</Title>

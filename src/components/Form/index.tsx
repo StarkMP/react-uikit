@@ -24,6 +24,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   position: relative;
+  max-width: 100%;
 `;
 
 const FormComponent: React.FC<FormProps> = ({

@@ -29,6 +29,7 @@ const Wrapper = styled.div<
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 
   ${(props) =>
     props.disabled &&

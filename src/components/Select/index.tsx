@@ -26,6 +26,7 @@ export type SelectProps = {
 
 const Select = styled.div`
   position: relative;
+  max-width: 100%;
 `;
 
 const Button = styled.button<{ error?: boolean }>`
