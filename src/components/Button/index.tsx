@@ -21,6 +21,7 @@ const Button = styled.button<ButtonProps>`
   transition: background 0.3s;
   text-align: center;
   position: relative;
+  max-width: 100%;
 
   &:hover:not(:disabled) {
     cursor: pointer;

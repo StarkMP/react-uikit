@@ -9,6 +9,7 @@ export { default as Input } from './components/Input';
 export { default as Form } from './components/Form';
 export { default as Modal } from './components/Modal';
 export { default as Select } from './components/Select';
+export { default as Dropdown } from './components/Dropdown';
 
 // Hooks
 export { default as useOutsideClick } from './hooks/useOutsideClick';
@@ -21,6 +22,7 @@ export type { ButtonProps } from './components/Button';
 export type { InputProps } from './components/Input';
 export type { ModalProps } from './components/Modal';
 export type { SelectProps } from './components/Select';
+export type { DropdownProps } from './components/Dropdown';
 export type {
   FormValues,
   FormValidation,

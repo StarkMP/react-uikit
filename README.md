@@ -29,6 +29,7 @@
 - [Modal](#modal)
 - [Select](#select)
   - [interface Option](#interface-option)
+- [Dropdown](#dropdown)
 - [interface FormValidationRule](#interface-formvalidationrule)
 - [enum ValidationRule](#enum-validationrule)
 
@@ -221,6 +222,32 @@ Props
 |options|Option[]|Элементы списка|
 |validation?|FormValidationRule[]|Правила валидации для элемента. Используется только внутри Form|
 |onChange?|(value: string) => void|Callback, срабатывающий при выборе элемента из списка|
+
+### Dropdown
+
+Example
+
+```tsx
+return (
+  <div>
+    <Button id='dropdown-btn' style={{ marginBottom: '10px' }}>
+      Dropdown
+    </Button>
+    <Dropdown align='left' triggerId='dropdown-btn'>
+      Some content
+    </Dropdown>
+  </div>
+);
+```
+
+Props
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|className?|string|Аттрибут `class`|
+|triggerId|string|Аттрибут `id` элемента, при клике на который будет появляться dropdown|
+|topOffset?|number = 15|Верхний отступ в `px` от trigger элемента|
+|align|`left` / `center` / `right`|Привязать dropdown к определенной оси|
 
 #### interface `Option`
 
