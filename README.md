@@ -230,10 +230,10 @@ Example
 ```tsx
 return (
   <div>
-    <Button id='dropdown-btn' style={{ marginBottom: '10px' }}>
+    <Button id='dropdown-btn'>
       Dropdown
     </Button>
-    <Dropdown align='left' triggerId='dropdown-btn'>
+    <Dropdown triggerId='dropdown-btn'>
       Some content
     </Dropdown>
   </div>
@@ -247,7 +247,6 @@ Props
 |className?|string|Аттрибут `class`|
 |triggerId|string|Аттрибут `id` элемента, при клике на который будет появляться dropdown|
 |topOffset?|number = 15|Верхний отступ в `px` от trigger элемента|
-|align|`left` / `center` / `right`|Привязать dropdown к определенной оси|
 
 #### interface `Option`
 

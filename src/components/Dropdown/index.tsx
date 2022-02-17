@@ -4,48 +4,21 @@ import styled from 'styled-components';
 
 import useOutsideClick from '../../hooks/useOutsideClick';
 
-type DropdownPosAlignLeft = {
+type DropdownPos = {
   top: number;
   left: number;
 };
-
-type DropdownPosAlignRight = {
-  top: number;
-  right: number;
-};
-
-type DropdownPosAlignCenter = {
-  top: number;
-  center: true;
-};
-
-type DropdownPos =
-  | DropdownPosAlignLeft
-  | DropdownPosAlignRight
-  | DropdownPosAlignCenter;
 
 export type DropdownProps = {
   triggerId: string;
   className?: string;
   topOffset?: number;
-  align: 'left' | 'right' | 'center';
 };
 
 export const Dropdown = styled.div<DropdownPos>`
   position: absolute;
   top: ${(props) => `${props.top}px`};
-  ${(props) =>
-    (props as DropdownPosAlignLeft).left !== undefined
-      ? `left: ${(props as DropdownPosAlignLeft).left}px;`
-      : ''}
-  ${(props) =>
-    (props as DropdownPosAlignRight).right !== undefined
-      ? `right: ${(props as DropdownPosAlignRight).right}px;`
-      : ''}
-  ${(props) =>
-    (props as DropdownPosAlignCenter).center
-      ? 'left: 50%; transform: translateX(-50%);'
-      : ''}
+  ${(props) => (props.left !== undefined ? `left: ${props.left}px;` : '')}
   background: #ffffff;
   box-shadow: 2px 6px 56px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
@@ -58,7 +31,6 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   triggerId,
   className,
   topOffset = 15,
-  align,
 }) => {
   const [trigger, setTrigger] = useState<HTMLElement | null>(null);
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -67,16 +39,9 @@ const DropdownComponent: React.FC<DropdownProps> = ({
 
   useOutsideClick(
     ref,
-    (event) => {
-      const mouseOverElement = document.elementFromPoint(
-        event.clientX,
-        event.clientY
-      );
-
-      if (mouseOverElement) {
-        if (trigger && trigger.id === mouseOverElement.id) {
-          return;
-        }
+    (event: MouseEvent) => {
+      if (trigger && trigger.id === (event.target as HTMLElement).id) {
+        return;
       }
 
       setIsShow(false);
@@ -94,19 +59,10 @@ const DropdownComponent: React.FC<DropdownProps> = ({
 
   const getPos = (): DropdownPos => {
     if (trigger) {
-      const top = trigger.offsetTop + trigger.clientHeight + topOffset;
-
-      if (align === 'left') {
-        return { top, left: trigger.offsetLeft };
-      }
-
-      if (align === 'right') {
-        return { top, right: trigger.offsetLeft };
-      }
-
-      if (align === 'center') {
-        return { top, center: true };
-      }
+      return {
+        top: trigger.offsetTop + trigger.clientHeight + topOffset,
+        left: trigger.offsetLeft,
+      };
     }
 
     return { top: 0, left: 0 };

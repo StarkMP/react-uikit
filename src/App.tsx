@@ -73,12 +73,10 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
       {/* Dropdown */}
-      <Button id='dropdown-btn' style={{ marginBottom: '10px' }}>
+      <Button id='dropdown-btn' style={{ margin: '30px', width: '300px' }}>
         Dropdown
       </Button>
-      <Dropdown align='left' triggerId='dropdown-btn'>
-        123
-      </Dropdown>
+      <Dropdown triggerId='dropdown-btn'>123</Dropdown>
 
       {/* Modal */}
       <Button onClick={() => setIsShow(true)}>Modal</Button>
