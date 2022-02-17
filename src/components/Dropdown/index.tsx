@@ -40,7 +40,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
   useOutsideClick(
     ref,
     (event: MouseEvent) => {
-      if (trigger && trigger.id === (event.target as HTMLElement).id) {
+      if (trigger && trigger.contains(event.target as HTMLElement)) {
         return;
       }
 
