@@ -1,7 +1,7 @@
 import './styles/fonts.scss';
 import './styles/global.scss';
 
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import useOutsideClick from '../../hooks/useOutsideClick';
 import Icons from '../Icons';
@@ -66,6 +66,27 @@ const modalAnimation = {
   exit: { top: '-50%' },
 };
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    overflow: hidden;
+  
+    @media(min-width: 980px) {
+      ${() => {
+        return window.innerHeight < document.body.offsetHeight
+          ? `padding-right: ${
+              Number(
+                window
+                  .getComputedStyle(document.body)
+                  .getPropertyValue('padding-right')
+                  .slice(0, -2)
+              ) + 17
+            }px;`
+          : '';
+      }}
+    }
+  }
+`;
+
 const Modal: React.FC<ModalProps> = ({
   children,
   portalElement,
@@ -85,6 +106,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return createPortal(
     <AnimatePresence>
+      <GlobalStyle />
       <Overlay
         initial={'initial'}
         animate={'show'}
