@@ -14,6 +14,7 @@ import {
   Input as UIInput,
   Modal,
   Select as UISelect,
+  Switcher,
   ValidationRule,
 } from '.';
 
@@ -53,6 +54,7 @@ const Disclaimer = styled.div`
 
 const Select = styled(UISelect)`
   margin-bottom: 20px;
+  margin-top: 10px;
   width: 100%;
 
   .ui-select__btn {
@@ -80,6 +82,7 @@ const App: React.FC = () => {
 
       {/* Modal */}
       <Button onClick={() => setIsShow(true)}>Modal</Button>
+      <Switcher onChange={(val) => console.log(val)} />
       <Modal onClose={() => setIsShow(false)} isShow={isShow}>
         <Form onSubmit={onSubmit} onValidationFailed={onValidationFailed}>
           <Title>Регистрация</Title>
@@ -124,6 +127,7 @@ const App: React.FC = () => {
               },
             ]}
           />
+          <Switcher name='switch' />
           <Select
             name='language'
             placeholder='Select your language'

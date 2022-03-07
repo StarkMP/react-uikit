@@ -10,6 +10,7 @@ export { default as Form } from './components/Form';
 export { default as Modal } from './components/Modal';
 export { default as Select } from './components/Select';
 export { default as Dropdown } from './components/Dropdown';
+export { default as Switcher } from './components/Switcher';
 
 // Hooks
 export { default as useOutsideClick } from './hooks/useOutsideClick';
@@ -23,6 +24,7 @@ export type { InputProps } from './components/Input';
 export type { ModalProps } from './components/Modal';
 export type { SelectProps } from './components/Select';
 export type { DropdownProps } from './components/Dropdown';
+export type { SwitcherProps } from './components/Switcher';
 export type {
   FormValues,
   FormValidation,
