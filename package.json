@@ -5,7 +5,7 @@
   "files": [
     "dist/**/*"
   ],
-  "version": "1.2.8",
+  "version": "1.2.9",
   "scripts": {
     "dev": "webpack serve --mode development --node-env development --config tools/webpack.development.js",
     "build": "webpack --mode production --node-env production --config tools/webpack.production.js",
