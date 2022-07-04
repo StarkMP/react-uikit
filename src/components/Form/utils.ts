@@ -1,12 +1,10 @@
-// TODO
-// Доработать работу с типами
-import { isUndefined } from '../../utils/methods';
-import { FormValidationRule, ValidationRule } from './types';
+import {
+  FormValidationRule,
+  FormValidationRuleRequired,
+  ValidationRule,
+} from './types';
 
-export const validate = (
-  rules: FormValidationRule[],
-  value: FormDataEntryValue
-) => {
+export const validate = (rules: FormValidationRule[], value: string) => {
   let trimmedValue = value;
 
   if (typeof value === 'string') {
@@ -25,13 +23,13 @@ export const validate = (
       }
 
       // Rules with value
-      // @ts-ignore
-      if (isUndefined(val.value)) {
+      const validationValue = (
+        val as Exclude<FormValidationRule, FormValidationRuleRequired>
+      ).value;
+
+      if (validationValue === undefined) {
         return memo;
       }
-
-      // @ts-ignore
-      const validationValue = val.value;
 
       if (
         ruleName.includes(ValidationRule.Custom) &&

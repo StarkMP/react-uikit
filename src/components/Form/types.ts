@@ -1,6 +1,6 @@
 import { FormEvent as ReactFormEvent, FormHTMLAttributes } from 'react';
 
-export type FormValues = Record<string, FormDataEntryValue>;
+export type FormValues = Record<string, string>;
 
 export type FormEvent = ReactFormEvent<HTMLFormElement>;
 
@@ -40,7 +40,7 @@ export enum ValidationRule {
   Custom = 'custom',
 }
 
-export type FormValidationRule<T = FormValues> =
+export type FormValidationRule<T = string> =
   | FormValidationRuleRequired
   | FormValidationRuleMatch
   | FormValidationRuleNotMatch
