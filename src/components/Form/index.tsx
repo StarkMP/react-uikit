@@ -42,7 +42,10 @@ const FormComponent: React.FC<FormProps> = ({
   const values: FormValues = useMemo(() => {
     const formValues: FormValues = {};
 
-    for (const pair of formData.entries()) {
+    // todo: add support to Files
+    for (const pair of formData.entries() as IterableIterator<
+      [string, string]
+    >) {
       formValues[pair[0]] = pair[1];
     }
 
