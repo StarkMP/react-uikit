@@ -28,9 +28,11 @@
 - [Form](#form)
 - [Modal](#modal)
 - [Select](#select)
-  - [interface Option](#interface-option)
+  - [type Option](#type-option)
 - [Dropdown](#dropdown)
-- [interface FormValidationRule](#interface-formvalidationrule)
+- [Notifications](#notifications)
+- [type UIKitProviderProps](#type-uikitproviderprops)
+- [type FormValidationRule](#type-formvalidationrule)
 - [enum ValidationRule](#enum-validationrule)
 
 ### Input
@@ -248,7 +250,45 @@ Props
 |triggerId|string|Аттрибут `id` элемента, при клике на который будет появляться dropdown|
 |topOffset?|number = 15|Верхний отступ в `px` от trigger элемента|
 
-#### interface `Option`
+### Notifications
+
+Example
+
+```tsx
+const { addNotification } = useNotifications();
+
+return (
+  <UIKitProvider>
+    <Button
+      onClick={() =>
+        addNotification({
+          type: NotificationType.Success,
+          title: 'Готово!',
+          description: 'Проект успешно опубликован!',
+        })
+      }
+    >
+      Call notification
+    </Button>
+  </UIKitProvider>
+);
+```
+
+Props
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|type|`success` / `warning` / `error`|Тип стилистики уведомления - `NotificationType`|
+|title|string|Заголовок уведомления|
+|description|string|Текст уведомления|
+
+#### type `UIKitProviderProps`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|notifications|{ `dismissTimeout: number` }|Параметры уведомлений. `dismissTimeout` - время жизни уведомления|
+
+#### type `Option`
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
@@ -257,7 +297,7 @@ Props
 |icon?|ReactNode|Иконка|
 |disabled?|boolean|Запретить выбор элемента в списке|
 
-#### interface `FormValidationRule`
+#### type `FormValidationRule`
 
 |Name|Type|Description|
 |-------------|-------------|-------------|

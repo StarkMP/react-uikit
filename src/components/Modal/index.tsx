@@ -63,7 +63,7 @@ const overlayAnimation = {
 const modalAnimation = {
   initial: { top: '-50%' },
   show: { top: '50%', transition: { duration: '0.5', type: 'spring' } },
-  exit: { top: '-50%' },
+  exit: { top: '-50%', transition: { duration: '0.5', type: 'spring' } },
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -102,27 +102,29 @@ const Modal: React.FC<ModalProps> = ({
     if (!disableOverlayClose) onClose();
   });
 
-  if (!isShow) return null;
-
   return createPortal(
     <AnimatePresence>
-      <GlobalStyle />
-      <Overlay
-        initial={'initial'}
-        animate={'show'}
-        exit={'exit'}
-        variants={overlayAnimation}
-      >
-        <Container
-          ref={containerRef}
-          onClick={(e) => e.stopPropagation()}
-          variants={modalAnimation}
-          {...other}
-        >
-          {!hideCloseButton && <CloseButton onClick={onClose} />}
-          <Body>{children}</Body>
-        </Container>
-      </Overlay>
+      {isShow && (
+        <React.Fragment>
+          <GlobalStyle />
+          <Overlay
+            initial='initial'
+            animate='show'
+            exit='exit'
+            variants={overlayAnimation}
+          >
+            <Container
+              ref={containerRef}
+              onClick={(e) => e.stopPropagation()}
+              variants={modalAnimation}
+              {...other}
+            >
+              {!hideCloseButton && <CloseButton onClick={onClose} />}
+              <Body>{children}</Body>
+            </Container>
+          </Overlay>
+        </React.Fragment>
+      )}
     </AnimatePresence>,
     portalElement || document.body
   );
