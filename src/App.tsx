@@ -15,8 +15,12 @@ import {
   Modal,
   Select as UISelect,
   Switcher,
+  UIKitProvider,
+  UIKitProviderProps,
+  useNotifications,
   ValidationRule,
 } from '.';
+import { NotificationType } from './components/Notification';
 
 const Form = styled(UIForm)`
   align-items: flex-start;
@@ -62,6 +66,12 @@ const Select = styled(UISelect)`
   }
 `;
 
+const providerOptions: UIKitProviderProps = {
+  notifications: {
+    dismissTimeout: 10000,
+  },
+};
+
 const App: React.FC = () => {
   const [isShow, setIsShow] = useState(false);
 
@@ -73,16 +83,20 @@ const App: React.FC = () => {
     console.log('onValidationFailed', data);
 
   return (
-    <React.Fragment>
+    <UIKitProvider {...providerOptions}>
       {/* Dropdown */}
-      <Button id='dropdown-btn' style={{ margin: '30px', width: '300px' }}>
+      <Button id='dropdown-btn' style={{ width: '300px' }}>
         Dropdown
       </Button>
       <Dropdown triggerId='dropdown-btn'>123</Dropdown>
 
+      {/* Notifications button */}
+      <NotificationButton />
+
       {/* Modal */}
-      <Button onClick={() => setIsShow(true)}>Modal</Button>
-      <Switcher onChange={(val) => console.log(val)} />
+      <Button style={{ marginTop: '30px' }} onClick={() => setIsShow(true)}>
+        Modal
+      </Button>
       <Modal onClose={() => setIsShow(false)} isShow={isShow}>
         <Form onSubmit={onSubmit} onValidationFailed={onValidationFailed}>
           <Title>Регистрация</Title>
@@ -145,6 +159,39 @@ const App: React.FC = () => {
           </Button>
         </Form>
       </Modal>
+    </UIKitProvider>
+  );
+};
+
+const NotificationButton = () => {
+  const { addNotification } = useNotifications();
+
+  return (
+    <React.Fragment>
+      <Button
+        style={{ marginTop: '30px' }}
+        onClick={() =>
+          addNotification({
+            type: NotificationType.Success,
+            title: 'Готово!',
+            description: 'Проект успешно опубликован!',
+          })
+        }
+      >
+        Call success notification
+      </Button>
+      <Button
+        style={{ marginTop: '30px' }}
+        onClick={() =>
+          addNotification({
+            type: NotificationType.Warning,
+            title: 'Внимание!',
+            description: 'Проект будет опубликован!',
+          })
+        }
+      >
+        Call warning notification
+      </Button>
     </React.Fragment>
   );
 };
