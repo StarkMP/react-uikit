@@ -22,6 +22,7 @@ const Overlay = styled(motion.div)`
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   z-index: 20;
+  box-sizing: border-box;
 `;
 
 const Container = styled(motion.div)`
@@ -35,10 +36,12 @@ const Container = styled(motion.div)`
   border-radius: 14px;
   position: relative;
   max-width: 100%;
+  box-sizing: border-box;
 `;
 
 const Body = styled.div`
   display: flex;
+  box-sizing: border-box;
 `;
 
 const CloseButton = styled(Icons.Cross)`
@@ -98,9 +101,13 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   const containerRef = useRef(null);
 
-  useOutsideClick(containerRef, () => {
-    if (!disableOverlayClose) onClose();
-  });
+  useOutsideClick(
+    containerRef,
+    () => {
+      if (!disableOverlayClose) onClose();
+    },
+    [disableOverlayClose]
+  );
 
   return createPortal(
     <AnimatePresence>

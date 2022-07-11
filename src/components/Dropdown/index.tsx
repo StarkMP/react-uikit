@@ -24,6 +24,7 @@ export const Dropdown = styled.div<DropdownPos>`
   border-radius: 12px;
   padding: 18px;
   z-index: 30;
+  box-sizing: border-box;
 `;
 
 const DropdownComponent: React.FC<DropdownProps> = ({
