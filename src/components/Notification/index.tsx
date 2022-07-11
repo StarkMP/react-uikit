@@ -42,6 +42,7 @@ export const Wrapper = styled(motion.div)<{ type: NotificationType }>`
   flex-direction: column;
   position: relative;
   max-width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 520px) {
     padding: 15px 50px;
@@ -71,6 +72,7 @@ const Title = styled.span`
   color: #1e1e1e;
   line-height: 24px;
   margin-bottom: 4px;
+  word-break: break-all;
 
   @media (max-width: 520px) {
     line-height: unset;
@@ -84,6 +86,7 @@ const Description = styled.span`
   font-size: 14px;
   color: #1e1e1e;
   line-height: 16px;
+  word-break: break-all;
 `;
 
 const CloseButton = styled(CrossIcon)`

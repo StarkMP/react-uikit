@@ -20,6 +20,7 @@ const Switcher = styled.div<{ isActive: boolean }>`
   transition: background-color 0.1s;
   cursor: pointer;
   user-select: none;
+  box-sizing: border-box;
 `;
 
 const SwitcherCircle = styled(motion.div)`

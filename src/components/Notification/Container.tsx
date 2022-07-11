@@ -23,6 +23,7 @@ const Container = styled.div`
   overflow-y: auto;
   padding: 30px;
   max-width: 100%;
+  box-sizing: border-box;
 
   &::-webkit-scrollbar {
     display: none;
@@ -41,11 +42,12 @@ const Container = styled.div`
   }
 `;
 
-const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
-  items,
-}) =>
+const NotificationsContainer = (
+  { items }: NotificationsContainerProps,
+  ref: React.ForwardedRef<HTMLDivElement>
+) =>
   createPortal(
-    <Container>
+    <Container ref={ref}>
       <AnimatePresence>
         {items.map((item) => (
           <Notification key={item.id} {...item} />
@@ -55,4 +57,4 @@ const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
     document.body
   );
 
-export default NotificationsContainer;
+export default React.forwardRef(NotificationsContainer);

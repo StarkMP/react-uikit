@@ -29,3 +29,7 @@ coverage
 # git
 .git
 .gitlab-ci.yml
+
+# misc
+.storybook
+storybook-static

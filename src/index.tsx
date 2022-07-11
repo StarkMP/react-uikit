@@ -1,5 +1,6 @@
 import './styles/fonts.scss';
 
+// Components
 export { default as Icons } from './components/Icons';
 export { default as Button } from './components/Button';
 export { default as Input } from './components/Input';
@@ -7,10 +8,10 @@ export { default as Form } from './components/Form';
 export { default as Modal } from './components/Modal';
 export { default as Select } from './components/Select';
 export { default as Dropdown } from './components/Dropdown';
-export { useNotifications } from './components/Notification/Provider';
 export { default as Switcher } from './components/Switcher';
 
-// Hooks
+// Misc
+export { useNotifications } from './components/Notification/Provider';
 export { default as useOutsideClick } from './hooks/useOutsideClick';
 export { Palette } from './utils/theme';
 export { default as UIKitProvider } from './components/Provider';

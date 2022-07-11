@@ -9,7 +9,7 @@ export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'size' | 'type'
 > & {
-  type?: 'email' | 'password';
+  type?: 'text' | 'email' | 'password';
   border?: boolean;
   label?: string;
   size?: 'md' | 'lg';

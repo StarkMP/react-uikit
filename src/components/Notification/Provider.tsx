@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { NotificationProps } from '.';
@@ -30,10 +36,10 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
   children,
 }) => {
   const [notifications, dispatch] = useReducer(notificationsReducer, []);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const addNotification = (params: AddNotificationParams) => {
     const id = uuidv4();
-
     const onRemove = () => dispatch(removeNotification(id));
 
     dispatch(addNotificationAction({ ...params, id, onRemove }));
@@ -41,9 +47,16 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
     setTimeout(onRemove, dismissTimeout);
   };
 
+  useEffect(() => {
+    // scrolling container to bottom after changing notifications
+    if (containerRef.current) {
+      containerRef.current.scrollTo(0, containerRef.current.scrollHeight);
+    }
+  }, [notifications]);
+
   return (
     <NotificationsContext.Provider value={{ addNotification }}>
-      <NotificationsContainer items={notifications} />
+      <NotificationsContainer ref={containerRef} items={notifications} />
       {children}
     </NotificationsContext.Provider>
   );

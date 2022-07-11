@@ -90,6 +90,8 @@ const Button = styled.button<ButtonProps>`
   ${(props) =>
     props.loading &&
     `
+
+    transition: color 0s;
     color: transparent;
 
     .ui-button__loader {
@@ -136,6 +138,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
       className={resultClassName}
       size={size}
       disabled={disabled || loading}
+      loading={loading}
       {...other}
     >
       {children}

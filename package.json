@@ -5,7 +5,7 @@
   "files": [
     "dist/**/*"
   ],
-  "version": "1.4.1",
+  "version": "1.5.1",
   "scripts": {
     "dev": "webpack serve --mode development --node-env development --config tools/webpack.development.js",
     "build": "webpack --mode production --node-env production --config tools/webpack.production.js",
@@ -13,7 +13,9 @@
     "eslint": "eslint . --ext .ts,.tsx",
     "eslint:fix": "eslint . --ext .ts,.tsx --fix",
     "lint": "npm run eslint && npm run typecheck",
-    "prepublishOnly": "npm run lint && npm run build"
+    "prepublishOnly": "npm run lint && npm run build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "author": "Maxim Serebryakov <starkmp.work@gmail.com>",
   "dependencies": {
@@ -29,6 +31,15 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.15.0",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "0.0.13",
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",
     "@types/styled-components": "^5.1.15",
@@ -47,6 +58,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-storybook": "^0.5.13",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.3",
     "postcss": "^8.3.11",

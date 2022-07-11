@@ -21,12 +21,25 @@ export type SelectProps = {
   defaultValue?: string;
   options: Option[];
   validation?: FormValidationRule[];
+  label?: string;
   onChange?: (value: string) => void;
 };
 
 const Select = styled.div`
   position: relative;
   max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  box-sizing: border-box;
+  color: #6d6d6d;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: 10px;
 `;
 
 const Button = styled.button<{ error?: boolean }>`
@@ -68,7 +81,8 @@ const SelectArrowIcon = styled(Icons.SelectArrow)<{ isOpen: boolean }>`
   transform: translateY(-50%) rotate(${(props) => (props.isOpen ? 180 : 0)}deg);
 `;
 
-const List = styled.ul`
+const List = styled.ul<{ topIndent: boolean }>`
+  box-sizing: border-box;
   position: absolute;
   width: 100%;
   background: #ffffff;
@@ -77,6 +91,11 @@ const List = styled.ul`
   overflow-x: hidden;
   max-height: 200px;
   z-index: 9;
+  margin: 0;
+  padding: 0;
+  top: 100%;
+
+  ${(props) => (props.topIndent ? 'top: calc(100% - 23px);' : '')}}
 
   &::-webkit-scrollbar {
     display: none;
@@ -133,6 +152,7 @@ const SelectComponent: React.FC<SelectProps> = ({
   name,
   options,
   validation,
+  label,
   onChange,
   ...other
 }) => {
@@ -184,6 +204,7 @@ const SelectComponent: React.FC<SelectProps> = ({
 
   return (
     <Select ref={elementRef} className={resultClassName} {...other}>
+      {label && <Label>{label}</Label>}
       <Button
         className='ui-select__btn'
         type='button'
@@ -199,7 +220,10 @@ const SelectComponent: React.FC<SelectProps> = ({
         <SelectArrowIcon className='ui-select__arrow' isOpen={isOpen} />
       </Button>
       {isOpen && (
-        <List className='ui-select__list'>
+        <List
+          topIndent={validationState !== null && validationState.error}
+          className='ui-select__list'
+        >
           {options.map((data) => (
             <Option
               className='ui-select__option'
