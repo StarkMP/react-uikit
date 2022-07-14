@@ -10,12 +10,14 @@ type NotificationsAction = {
   payload: NotificationProps | string;
 };
 
-export const addNotification = (params: NotificationProps) => ({
+export const addNotification = (
+  params: NotificationProps
+): NotificationsAction => ({
   type: Actions.AddNotification,
   payload: params,
 });
 
-export const removeNotification = (id: string) => ({
+export const removeNotification = (id: string): NotificationsAction => ({
   type: Actions.RemoveNotification,
   payload: id,
 });

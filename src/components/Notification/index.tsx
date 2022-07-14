@@ -35,7 +35,7 @@ const TYPE_ICONS = {
 
 export const Wrapper = styled(motion.div)<{ type: NotificationType }>`
   display: flex;
-  background: ${(props) => TYPE_COLORS[props.type]};
+  background: ${(props): string => TYPE_COLORS[props.type]};
   border-radius: 13px;
   padding: 20px 78px;
   width: 450px;

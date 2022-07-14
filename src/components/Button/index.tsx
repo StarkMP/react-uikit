@@ -28,39 +28,42 @@ const Button = styled.button<ButtonProps>`
     background: #ce435d;
   }
 
-  ${(props) =>
-    props.size === 'sm' &&
-    `
+  ${(props): string =>
+    props.size === 'sm'
+      ? `
     height: 36px;
     border-radius: 8px;
     padding: 0 30px;
     font-size: 14px;
     line-height: 17px;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.size === 'md' &&
-    `
+  ${(props): string =>
+    props.size === 'md'
+      ? `
     height: 49px;
     border-radius: 10px;
     padding: 0 32px;
     font-size: 14px;
     line-height: 17px;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.size === 'lg' &&
-    `
+  ${(props): string =>
+    props.size === 'lg'
+      ? `
     height: 62px;
     border-radius: 14px;
     padding: 0 48px;
     font-size: 18px;
     line-height: 23px;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.outlined &&
-    `
+  ${(props): string =>
+    props.outlined
+      ? `
     background: none;
     border: 1px solid #dddddd;
     color: #1E1E1E;
@@ -71,11 +74,12 @@ const Button = styled.button<ButtonProps>`
       border-color: #ec546f;
       color: #ec546f;
     }
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.borderless &&
-    `
+  ${(props): string =>
+    props.borderless
+      ? `
     background: none;
     border: none;
     color: #1E1E1E;
@@ -85,11 +89,12 @@ const Button = styled.button<ButtonProps>`
       background: none;
       color: #ec546f;
     }
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.loading &&
-    `
+  ${(props): string =>
+    props.loading
+      ? `
 
     transition: color 0s;
     color: transparent;
@@ -120,7 +125,8 @@ const Button = styled.button<ButtonProps>`
           : ''
       }
     }
-  `}
+  `
+      : ''}
 `;
 
 const ButtonComponent: React.FC<ButtonProps> = ({

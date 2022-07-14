@@ -27,10 +27,10 @@ const Template: ComponentStory<typeof ModalComponent> = (args) => {
 
   return (
     <Fragment>
-      <Button onClick={() => setIsShow(true)}>Open modal</Button>
+      <Button onClick={(): void => setIsShow(true)}>Open modal</Button>
       <ModalComponent
         {...args}
-        onClose={() => setIsShow(false)}
+        onClose={(): void => setIsShow(false)}
         isShow={isShow}
       >
         Lorem ipsum

@@ -45,7 +45,7 @@ const Container = styled.div`
 const NotificationsContainer = (
   { items }: NotificationsContainerProps,
   ref: React.ForwardedRef<HTMLDivElement>
-) =>
+): React.ReactPortal =>
   createPortal(
     <Container ref={ref}>
       <AnimatePresence>

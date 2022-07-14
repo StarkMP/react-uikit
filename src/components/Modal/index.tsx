@@ -74,7 +74,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: hidden;
   
     @media(min-width: 980px) {
-      ${() => {
+      ${(): string => {
         return window.innerHeight < document.body.offsetHeight
           ? `padding-right: ${
               Number(
@@ -122,7 +122,7 @@ const Modal: React.FC<ModalProps> = ({
           >
             <Container
               ref={containerRef}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e): void => e.stopPropagation()}
               variants={modalAnimation}
               {...other}
             >

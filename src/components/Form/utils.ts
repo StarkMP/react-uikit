@@ -4,7 +4,10 @@ import {
   ValidationRule,
 } from './types';
 
-export const validate = (rules: FormValidationRule[], value: string) => {
+export const validate = (
+  rules: FormValidationRule[],
+  value: string
+): Record<string, boolean> => {
   let trimmedValue = value;
 
   if (typeof value === 'string') {

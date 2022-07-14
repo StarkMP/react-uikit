@@ -29,7 +29,8 @@ const NotificationsContext = createContext<NotificationsContextProps>({
   addNotification: () => {},
 });
 
-export const useNotifications = () => useContext(NotificationsContext);
+export const useNotifications = (): NotificationsContextProps =>
+  useContext(NotificationsContext);
 
 export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
   dismissTimeout = 10000,
@@ -38,9 +39,9 @@ export const NotificationsProvider: React.FC<NotificationsProviderProps> = ({
   const [notifications, dispatch] = useReducer(notificationsReducer, []);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const addNotification = (params: AddNotificationParams) => {
+  const addNotification = (params: AddNotificationParams): void => {
     const id = uuidv4();
-    const onRemove = () => dispatch(removeNotification(id));
+    const onRemove = (): void => dispatch(removeNotification(id));
 
     dispatch(addNotificationAction({ ...params, id, onRemove }));
 

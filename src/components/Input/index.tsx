@@ -31,11 +31,12 @@ const Wrapper = styled.div<
   flex-direction: column;
   max-width: 100%;
 
-  ${(props) =>
-    props.disabled &&
-    `
+  ${(props): string =>
+    props.disabled
+      ? `
     opacity: 0.5;
-  `}
+  `
+      : ''}
 `;
 
 const Label = styled.label`
@@ -67,35 +68,40 @@ const Input = styled.input<StyledComponentInputProps>`
   font-weight: 500;
   font-size: 14px;
 
-  ${(props) =>
-    props._size === 'md' &&
-    `
+  ${(props): string =>
+    props._size === 'md'
+      ? `
     height: 48px;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props._size === 'lg' &&
-    `
+  ${(props): string =>
+    props._size === 'lg'
+      ? `
     height: 56px;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.withIcon &&
-    `
+  ${(props): string =>
+    props.withIcon
+      ? `
     padding-right: 64px;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.border &&
-    `
+  ${(props): string =>
+    props.border
+      ? `
     border: 1px solid #DDDDDD;
-  `}
+  `
+      : ''}
 
-  ${(props) =>
-    props.error &&
-    `
+  ${(props): string =>
+    props.error
+      ? `
     border: 1px solid #D0091E !important;
-  `}
+  `
+      : ''}
 
   &::placeholder {
     color: #afafaf;
@@ -135,7 +141,7 @@ const InputComponent: React.FC<InputProps> = ({
 
   const resultClassName = className ? `ui-input ${className}` : 'ui-input';
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.currentTarget.value);
 
     if (onChange) onChange(e);

@@ -57,11 +57,12 @@ const Button = styled.button<{ error?: boolean }>`
   z-index: 9;
   position: relative;
 
-  ${(props) =>
-    props.error &&
-    `
+  ${(props): string =>
+    props.error
+      ? `
     border: 1px solid #D0091E !important;
-  `}
+  `
+      : ''}
 `;
 
 const Value = styled.div`
@@ -78,7 +79,8 @@ const SelectArrowIcon = styled(Icons.SelectArrow)<{ isOpen: boolean }>`
   top: 50%;
   right: 17px;
   color: #6d6d6d;
-  transform: translateY(-50%) rotate(${(props) => (props.isOpen ? 180 : 0)}deg);
+  transform: translateY(-50%)
+    rotate(${(props): string => (props.isOpen ? '180' : '0')}deg);
 `;
 
 const List = styled.ul<{ topIndent: boolean }>`
@@ -95,7 +97,7 @@ const List = styled.ul<{ topIndent: boolean }>`
   padding: 0;
   top: 100%;
 
-  ${(props) => (props.topIndent ? 'top: calc(100% - 23px);' : '')}}
+  ${(props): string => (props.topIndent ? 'top: calc(100% - 23px);' : '')}}
 
   &::-webkit-scrollbar {
     display: none;
@@ -122,7 +124,7 @@ const OptionLabel = styled.span<{ disabled?: boolean }>`
   font-family: Roboto;
   font-weight: 500;
   font-size: 14px;
-  color: ${(props) => (props.disabled ? '#c5c5c5' : '#1e1e1e')};
+  color: ${(props): string => (props.disabled ? '#c5c5c5' : '#1e1e1e')};
 `;
 
 const OptionIcon = styled.div`
@@ -163,7 +165,7 @@ const SelectComponent: React.FC<SelectProps> = ({
 
   const resultClassName = className ? `ui-select ${className}` : 'ui-select';
 
-  const findOptionByValue = (optionValue: string) =>
+  const findOptionByValue = (optionValue: string): Option | void =>
     options.find((option) => option.value === optionValue);
 
   const activeOption = useMemo(
@@ -183,7 +185,7 @@ const SelectComponent: React.FC<SelectProps> = ({
     return '';
   }, [value, placeholder, options, activeOption]);
 
-  const onSelectOption = (optionValue: string) => {
+  const onSelectOption = (optionValue: string): void => {
     if (findOptionByValue(optionValue)?.disabled) {
       return;
     }
@@ -209,7 +211,7 @@ const SelectComponent: React.FC<SelectProps> = ({
         className='ui-select__btn'
         type='button'
         error={validationState ? validationState.error : false}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={(): void => setIsOpen((prev) => !prev)}
       >
         {activeOption && activeOption.icon && (
           <OptionIcon className='ui-select__icon'>
@@ -227,7 +229,7 @@ const SelectComponent: React.FC<SelectProps> = ({
           {options.map((data) => (
             <Option
               className='ui-select__option'
-              onClick={() =>
+              onClick={(): void =>
                 validationState
                   ? validationState.onChange(data.value)
                   : onSelectOption(data.value)

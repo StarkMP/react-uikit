@@ -25,7 +25,7 @@ const NotificationButton: React.FC<NotificationProps> = ({
 
   return (
     <Button
-      onClick={() =>
+      onClick={(): void =>
         addNotification({
           type,
           title,

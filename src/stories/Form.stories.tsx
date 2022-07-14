@@ -134,6 +134,6 @@ const Template: ComponentStory<typeof FormComponent> = (args) => {
 export const Form = Template.bind({});
 
 Form.args = {
-  onSubmit: (data) => console.log(data),
-  onValidationFailed: (errorData) => console.log(errorData),
+  onSubmit: (data): void => console.log(data),
+  onValidationFailed: (errorData): void => console.log(errorData),
 };

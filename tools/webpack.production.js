@@ -7,7 +7,7 @@ module.exports = {
   ...WebpackCommonConfig,
   target: 'web',
   entry: {
-    index: path.resolve(__dirname, '../src/index.tsx'),
+    index: path.resolve(__dirname, '../src/index.ts'),
   },
   output: {
     filename: '[name].js',

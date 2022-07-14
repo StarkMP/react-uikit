@@ -7,11 +7,17 @@ type UseFormValidationAdditionalData = {
   onChange?: (...args: any[]) => void;
 };
 
+type ValidationState = {
+  error: boolean;
+  errorMessage: string;
+  onChange: (...args: any[]) => void;
+};
+
 const useFormValidation = (
   name?: string,
   validation?: FormValidationRule[],
   data: UseFormValidationAdditionalData = {}
-) => {
+): ValidationState | null => {
   if (!name || !validation) {
     return null;
   }
@@ -34,7 +40,7 @@ const useFormValidation = (
     [validation]
   );
 
-  const checkValidation = () => {
+  const checkValidation = (): void => {
     const status = validationStatus[name];
 
     if (status) {
