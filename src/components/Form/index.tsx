@@ -55,7 +55,7 @@ const FormComponent: React.FC<FormProps> = ({
   const mountValidationRules = (
     formElementName: string,
     rules: FormValidationRule[]
-  ) => {
+  ): void => {
     setRules((prev) => ({ ...prev, [formElementName]: rules }));
   };
 
@@ -88,7 +88,7 @@ const FormComponent: React.FC<FormProps> = ({
     return {};
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -96,7 +96,7 @@ const FormComponent: React.FC<FormProps> = ({
     setFormData(formData);
   };
 
-  const afterValidate = () => {
+  const afterValidate = (): void => {
     if (isEmpty(values)) {
       return;
     }

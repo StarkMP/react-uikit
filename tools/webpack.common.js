@@ -34,9 +34,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
-        exclude: /(node_modules|bower_components)/,
-        use: ['babel-loader', 'awesome-typescript-loader'].filter(Boolean),
+        test: /\.(js|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
       },
       {
         test: /\.s[ac]ss$/i,

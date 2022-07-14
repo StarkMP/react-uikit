@@ -13,6 +13,7 @@ import {
   FormValidationFailedArguments,
   Input as UIInput,
   Modal,
+  NotificationType,
   Select as UISelect,
   Switcher,
   UIKitProvider,
@@ -20,7 +21,6 @@ import {
   useNotifications,
   ValidationRule,
 } from '.';
-import { NotificationType } from './components/Notification';
 
 const Form = styled(UIForm)`
   align-items: flex-start;
@@ -75,11 +75,11 @@ const providerOptions: UIKitProviderProps = {
 const App: React.FC = () => {
   const [isShow, setIsShow] = useState(false);
 
-  const onSubmit = (data: FormSubmitArguments) => {
+  const onSubmit = (data: FormSubmitArguments): void => {
     console.log('onSubmit', data);
   };
 
-  const onValidationFailed = (data: FormValidationFailedArguments) =>
+  const onValidationFailed = (data: FormValidationFailedArguments): void =>
     console.log('onValidationFailed', data);
 
   return (
@@ -94,10 +94,13 @@ const App: React.FC = () => {
       <NotificationButton />
 
       {/* Modal */}
-      <Button style={{ marginTop: '30px' }} onClick={() => setIsShow(true)}>
+      <Button
+        style={{ marginTop: '30px' }}
+        onClick={(): void => setIsShow(true)}
+      >
         Modal
       </Button>
-      <Modal onClose={() => setIsShow(false)} isShow={isShow}>
+      <Modal onClose={(): void => setIsShow(false)} isShow={isShow}>
         <Form onSubmit={onSubmit} onValidationFailed={onValidationFailed}>
           <Title>Регистрация</Title>
           <Input
@@ -163,14 +166,14 @@ const App: React.FC = () => {
   );
 };
 
-const NotificationButton = () => {
+const NotificationButton: React.FC = () => {
   const { addNotification } = useNotifications();
 
   return (
     <React.Fragment>
       <Button
         style={{ marginTop: '30px' }}
-        onClick={() =>
+        onClick={(): void =>
           addNotification({
             type: NotificationType.Success,
             title: 'Готово!',
@@ -182,7 +185,7 @@ const NotificationButton = () => {
       </Button>
       <Button
         style={{ marginTop: '30px' }}
-        onClick={() =>
+        onClick={(): void =>
           addNotification({
             type: NotificationType.Warning,
             title: 'Внимание!',

@@ -17,8 +17,9 @@ export type DropdownProps = {
 
 export const Dropdown = styled.div<DropdownPos>`
   position: absolute;
-  top: ${(props) => `${props.top}px`};
-  ${(props) => (props.left !== undefined ? `left: ${props.left}px;` : '')}
+  top: ${(props): string => `${props.top}px`};
+  ${(props): string =>
+    props.left !== undefined ? `left: ${props.left}px;` : ''}
   background: #ffffff;
   box-shadow: 2px 6px 56px rgba(0, 0, 0, 0.12);
   border-radius: 12px;
@@ -54,7 +55,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
     ? `ui-dropdown ${className}`
     : 'ui-dropdown';
 
-  const onClick = () => {
+  const onClick = (): void => {
     setIsShow((prev) => !prev);
   };
 
@@ -77,7 +78,7 @@ const DropdownComponent: React.FC<DropdownProps> = ({
     if (trigger) {
       trigger.addEventListener('click', onClick);
 
-      return () => {
+      return (): void => {
         trigger.removeEventListener('click', onClick);
       };
     }

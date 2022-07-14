@@ -1,20 +1,20 @@
 # Boxis UIKit
-Набор React-компонентов.
+Styled react components
 
 ## Installation
 
-- Устанавливаем NPM зависимость
+- Install NPM dependency
 
 	``npm install boxis-uikit``
-- Подключаем стили в главном JS или CSS файле
+- Connect styles in main js or css file
 
-  index.js
+  JS
 	```js
 	import "boxis-uikit/dist/index.css";
 	```
-  или
+  or
 
-  index.css
+  CSS
   ```css
 	@import url("boxis-uikit/dist/index.css");
 	```
@@ -26,14 +26,14 @@
 - [Input](#input)
 - [Button](#button)
 - [Form](#form)
+  - [type FormValidationRule](#type-formvalidationrule)
+  - [enum ValidationRule](#enum-validationrule)
 - [Modal](#modal)
 - [Select](#select)
   - [type Option](#type-option)
 - [Dropdown](#dropdown)
 - [Notifications](#notifications)
 - [type UIKitProviderProps](#type-uikitproviderprops)
-- [type FormValidationRule](#type-formvalidationrule)
-- [enum ValidationRule](#enum-validationrule)
 
 ### Input
 
@@ -45,7 +45,7 @@ Example
   type='email'
   size='lg'
   name='email'
-  placeholder='Введите Email'
+  placeholder='Type Email'
 />
 ```
 
@@ -57,15 +57,15 @@ Example with validation
   type='email'
   size='lg'
   name='email'
-  placeholder='Введите Email'
+  placeholder='Type Email'
   validation={[
     {
       rule: ValidationRule.Required,
-      message: 'Заполните обязательное поле!',
+      message: 'Fill required field!',
     },
     {
       rule: ValidationRule.RegExp,
-      message: 'Некорректный email',
+      message: 'Incorrect email',
       value: /^\S+@\S+\.\S+$/,
     },
   ]}
@@ -76,14 +76,14 @@ Props extends **HTMLInputElement**
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|label?|string|Подпись сверху|
-|size?|`md` / `lg`|Размер|
-|icon?|ReactNode|Иконка внутри инпута|
-|error?|boolean|Состояние ошибки|
-|errorText?|string|Текст ошибки|
-|border?|boolean|Включает/выключает обводку|
-|type?|`email` / `password`|Тип инпута (в данный момент поддерживается email и password)|
-|validation?|FormValidationRule[]|Правила валидации для элемента. Используется только внутри Form|
+|label?|string|Label of input|
+|size?|`md` / `lg`|Input size|
+|icon?|ReactNode|Icon in input|
+|error?|boolean|Error state|
+|errorText?|string|Error text|
+|border?|boolean|Switch border|
+|type?|`text` / `email` / `password`|Input type|
+|validation?|FormValidationRule[]|Validation rules for element. Using only in Form|
 
 ### Button
 
@@ -97,7 +97,7 @@ return (
     size='lg'
     onClick={setCount((prev) => prev + 1)}
   >
-    Добавить
+    Increment
   </Button>
 );
 ```
@@ -106,10 +106,10 @@ Props extends **HTMLButtonElement**
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|size?|`sm` / `md` / `lg`|Размер|
-|outlined?|boolean|Состояние с пустым background и обводкой|
-|borderless?|boolean|Состояние без обводки|
-|loading?|boolean|Состояние загрузки|
+|size?|`sm` / `md` / `lg`|Size of button|
+|outlined?|boolean|State of button with empty background and active border|
+|borderless?|boolean|State of button without border|
+|loading?|boolean|State of button with loader|
 
 ### Form
 
@@ -122,15 +122,15 @@ Example
     type='email'
     size='lg'
     name='email'
-    placeholder='Введите Email'
+    placeholder='Type email'
     validation={[
       {
         rule: ValidationRule.Required,
-        message: 'Заполните обязательное поле!',
+        message: 'Fill required field!',
       },
       {
         rule: ValidationRule.RegExp,
-        message: 'Некорректный email',
+        message: 'Incorrect email',
         value: /^\S+@\S+\.\S+$/,
       },
     ]}
@@ -140,26 +140,26 @@ Example
     type='password'
     size='lg'
     name='password'
-    placeholder='Введите пароль'
+    placeholder='Type password'
     validation={[
       {
         rule: ValidationRule.Required,
-        message: 'Заполните обязательное поле!',
+        message: 'Fill required field!',
       },
       {
         rule: ValidationRule.MaxLength,
         value: 18,
-        message: 'Длина не может быть больше 18 символов!',
+        message: 'Length cannot be higher of 8 symbols!',
       },
       {
         rule: ValidationRule.MinLength,
         value: 6,
-        message: 'Длина не может быть меньше 6 символов!',
+        message: 'Length cannot be lower of 6 symbols!',
       },
     ]}
   />
   <Button size='lg' type='submit'>
-    Зарегистрироваться
+    Register
   </Button>
 </Form>
 ```
@@ -168,8 +168,8 @@ Props extends **HTMLFormElement**
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|onSubmit|({ values, formData }) => void|Callback при отправке формы|
-|onValidationFailed?|({ values, validation }) => void|Callback при неудачной валидации формы|
+|onSubmit|({ values, formData }) => void|Callback of form submit|
+|onValidationFailed?|({ values, validation }) => void|Callback at failed validation|
 
 ### Modal
 
@@ -180,9 +180,9 @@ const [isShow, setIsShow] = useState(false);
 
 return (
   <Modal isShow={isShow} onClose={() => setIsShow(false)}>
-    <p>Согласны ли Вы с правилами сайта?</p>
-    <button>Да</button>
-    <button>Нет</button>
+    <p>Do you agree with website rules?</p>
+    <button>Yes</button>
+    <button>No</button>
   </Modal>
 );
 ```
@@ -191,11 +191,11 @@ Props
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|portalElement?|HTMLElement|HTML-элемент, в котором будет создано модальное окно. По-умолчанию: `body`|
-|hideCloseButton?|boolean|Скрыть перекрестие внутри модального окна|
-|disableOverlayClose?|boolean|Запретить закрытие модального окна при клике на оверлей|
-|isShow|boolean|Показать модальное окно|
-|onClose|() => void|Callback при закрытии модального окна|
+|portalElement?|HTMLElement|Portal HTML-element. Default: `body`|
+|hideCloseButton?|boolean|Hide close button|
+|disableOverlayClose?|boolean|Forbid closing modal on overlay click|
+|isShow|boolean|Show modal|
+|onClose|() => void|Callback of modal closing|
 
 ### Select
 
@@ -206,8 +206,8 @@ return (
   <Select
     placeholder='Choose your language'
     options={[
-      { label: 'Russian', value: 'ru' },
       { label: 'English', value: 'en' },
+      { label: 'Deutsch', value: 'de' },
     ]}
   />
 );
@@ -217,13 +217,13 @@ Props
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|className?|string|Аттрибут `class`|
-|name?|string|Аттрибут `name`. Используется для встраивания элемента в Form|
-|placeholder?|string|Текст в Select по-умолчанию, если не выбран ни один элемент списка|
-|defaultValue?|string|Выбранное значение по-умолчанию|
-|options|Option[]|Элементы списка|
-|validation?|FormValidationRule[]|Правила валидации для элемента. Используется только внутри Form|
-|onChange?|(value: string) => void|Callback, срабатывающий при выборе элемента из списка|
+|className?|string|Class html attribute|
+|name?|string|Name html attribute. Using with Form|
+|placeholder?|string|Placeholder for Select|
+|defaultValue?|string|Default value|
+|options|Option[]|Select options|
+|validation?|FormValidationRule[]|Validation rules for element. Using only in Form|
+|onChange?|(value: string) => void|Callback at changing select option|
 
 ### Dropdown
 
@@ -246,9 +246,9 @@ Props
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|className?|string|Аттрибут `class`|
-|triggerId|string|Аттрибут `id` элемента, при клике на который будет появляться dropdown|
-|topOffset?|number = 15|Верхний отступ в `px` от trigger элемента|
+|className?|string|Class html attribute|
+|triggerId|string|Dropdown trigger id|
+|topOffset?|number = 15|Top offset in px|
 
 ### Notifications
 
@@ -263,8 +263,8 @@ return (
       onClick={() =>
         addNotification({
           type: NotificationType.Success,
-          title: 'Готово!',
-          description: 'Проект успешно опубликован!',
+          title: 'Done!',
+          description: 'Project has been successfully published!',
         })
       }
     >
@@ -278,41 +278,41 @@ Props
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|type|`success` / `warning` / `error`|Тип стилистики уведомления - `NotificationType`|
-|title|string|Заголовок уведомления|
-|description|string|Текст уведомления|
+|type|`success` / `warning` / `error`|Notification style - `NotificationType`|
+|title|string|Title of notification|
+|description|string|Description of notification|
 
 #### type `UIKitProviderProps`
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|notifications|{ `dismissTimeout: number` }|Параметры уведомлений. `dismissTimeout` - время жизни уведомления|
+|notifications|{ `dismissTimeout: number` }|Notification params. `dismissTimeout` - notification lifetime|
 
 #### type `Option`
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|label|string|Название|
-|value|string|Значение|
-|icon?|ReactNode|Иконка|
-|disabled?|boolean|Запретить выбор элемента в списке|
+|label|string|Label|
+|value|string|Value|
+|icon?|ReactNode|Icon|
+|disabled?|boolean|Disable option's selectable|
 
 #### type `FormValidationRule`
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|rule|ValidationRule|Идентификатор правила|
-|message|string|Сообщение при неудачной валидации элемента|
-|value?|unknown|Вспомогательное поле для проверки правила|
+|rule|ValidationRule|Rule identificator|
+|message|string|Failed validation message|
+|value?|unknown|Value for validation rule|
 
 #### enum `ValidationRule`
 
 |Name|Type|Description|
 |-------------|-------------|-------------|
-|Required|`required`|Обязательное поле|
-|Match|`match`|Соответствует ли заданному значению в `value`|
-|NotMatch|`not_match`|Не соответствует ли заданному значению в `value`|
-|MinLength|`min_length`|Длина строки значения больше или равно `value`|
-|MaxLength|`max_length`|Длина строки значения меньше или равно `value`|
-|RegExp|`regexp`|Соответствует ли значение регулярному выражению в `value`|
-|Custom|`custom_<uuid>`|Принимает в `value` callback-функцию, типа `(fieldValue) => boolean`, где аргумент `fieldValue` - значение поля. При возвращении `true`, валидация будет выполнена успешно, при `false` проверка будет провалена|
+|Required|`required`|Required field|
+|Match|`match`|Checking value is match|
+|NotMatch|`not_match`|Checking value is not match|
+|MinLength|`min_length`|Length of string equal or higher of value|
+|MaxLength|`max_length`|Length of string equal or lower of value|
+|RegExp|`regexp`|Checking value is match of regular expression|
+|Custom|`custom_<uuid>`|Receives callback function `(fieldValue) => boolean` (where's argument `fieldValue` - field value) in `value` property in validation rule. If return `true` - validation will be successfuly, if return `false` - validation will be unsuccessfuly|

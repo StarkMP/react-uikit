@@ -16,7 +16,8 @@ const Switcher = styled.div<{ isActive: boolean }>`
   width: 36px;
   height: 20px;
   border-radius: 20px;
-  background-color: ${(props) => (props.isActive ? '#38B471' : '#A4A4A4')};
+  background-color: ${(props): string =>
+    props.isActive ? '#38B471' : '#A4A4A4'};
   transition: background-color 0.1s;
   cursor: pointer;
   user-select: none;
@@ -49,7 +50,7 @@ const SwitcherComponent: React.FC<SwitcherProps> = ({
     : 'ui-switcher';
   const switcherCirclePos = isActive ? ACTIVE_CIRCLE_POS_X : 0;
 
-  const onSwitch = () => {
+  const onSwitch = (): void => {
     setIsActive((prev) => {
       if (onChange) onChange(!prev);
 
