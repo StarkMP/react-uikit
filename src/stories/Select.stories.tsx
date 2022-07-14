@@ -4,8 +4,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
+import { Select as SelectComponent } from '..';
 import CircleAlertIcon from '../components/Icons/CircleAlert';
-import { default as SelectComponent } from '../components/Select';
 
 export default {
   title: 'UIKit/Select',

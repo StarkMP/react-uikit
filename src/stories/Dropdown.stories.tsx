@@ -3,8 +3,7 @@ import '../styles/fonts.scss';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React, { Fragment } from 'react';
 
-import Button from '../components/Button';
-import { default as DropdownComponent } from '../components/Dropdown';
+import { Button, Dropdown as DropdownComponent } from '..';
 
 export default {
   title: 'UIKit/Dropdown',

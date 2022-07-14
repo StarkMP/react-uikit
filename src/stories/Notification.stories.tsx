@@ -3,12 +3,14 @@ import '../styles/fonts.scss';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { Button, UIKitProviderProps, useNotifications } from '..';
 import {
+  Button,
   NotificationProps,
   NotificationType,
-} from '../components/Notification';
-import UIKitProvider from '../components/Provider';
+  UIKitProvider,
+  UIKitProviderProps,
+  useNotifications,
+} from '..';
 
 const providerOptions: UIKitProviderProps = {
   notifications: {

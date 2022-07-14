@@ -4,11 +4,13 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
-import UIButton from '../components/Button';
-import { default as FormComponent } from '../components/Form';
-import { ValidationRule } from '../components/Form/types';
-import UIInput from '../components/Input';
-import UISelect from '../components/Select';
+import {
+  Button as UIButton,
+  Form as FormComponent,
+  Input as UIInput,
+  Select as UISelect,
+  ValidationRule,
+} from '..';
 
 export default {
   title: 'UIKit/Form',
