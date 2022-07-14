@@ -33,6 +33,7 @@ Styled react components
   - [type Option](#type-option)
 - [Dropdown](#dropdown)
 - [Notifications](#notifications)
+  - [enum NotificationType](#enum-notificationtype)
 - [type UIKitProviderProps](#type-uikitproviderprops)
 
 ### Input
@@ -316,3 +317,11 @@ Props
 |MaxLength|`max_length`|Length of string equal or lower of value|
 |RegExp|`regexp`|Checking value is match of regular expression|
 |Custom|`custom_<uuid>`|Receives callback function `(fieldValue) => boolean` (where's argument `fieldValue` - field value) in `value` property in validation rule. If return `true` - validation will be successfuly, if return `false` - validation will be unsuccessfuly|
+
+#### enum `NotificationType`
+
+|Name|Type|Description|
+|-------------|-------------|-------------|
+|Success|`success`|Success notification style|
+|Warning|`warning`|Warning notification style|
+|Error|`error`|Error notification style|
