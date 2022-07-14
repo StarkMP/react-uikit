@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { default as SwitcherComponent } from '../components/Switcher';
+import { Switcher as SwitcherComponent } from '..';
 
 export default {
   title: 'UIKit/Switcher',

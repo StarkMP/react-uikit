@@ -3,8 +3,7 @@ import '../styles/fonts.scss';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React, { Fragment, useState } from 'react';
 
-import Button from '../components/Button';
-import { default as ModalComponent } from '../components/Modal';
+import { Button, Modal as ModalComponent } from '..';
 
 export default {
   title: 'UIKit/Modal',

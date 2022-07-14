@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
-import { default as InputComponent } from '../components/Input';
+import { Input as InputComponent } from '..';
 
 export default {
   title: 'UIKit/Input',

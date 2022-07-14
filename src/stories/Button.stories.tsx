@@ -3,7 +3,7 @@ import '../styles/fonts.scss';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 
-import { default as ButtonComponent } from '../components/Button';
+import { Button as ButtonComponent } from '..';
 
 export default {
   title: 'UIKit/Button',
